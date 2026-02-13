@@ -1,6 +1,6 @@
 // script.js
 
-const petsURL = "https://raw.githubusercontent.com/skbidi-ai/Gameservices-website/refs/heads/main/pet_values.json";
+const petsURL = "https://raw.githubusercontent.com/skbidi-ai/Gameservices-website/main/pet_values.json";
 
 // Create a container dynamically
 const container = document.createElement("div");
