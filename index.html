@@ -1042,28 +1042,32 @@
             updateGridDisplay();
         }
 
-        // Load pets from API
-        async function loadPets() {
-            try {
-                const response = await fetch('/pet-list');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-
-                if (Array.isArray(data)) {
-                    allPets = data.filter(pet => pet.image_url && pet.image_url !== 'null' && pet.image_url.trim() !== '');
-                    console.log('Successfully loaded', allPets.length, 'pets with valid images');
-                    populatePetsGrid();
-                } else {
-                    console.error('Invalid data format received:', data);
-                    allPets = [];
-                }
-            } catch (error) {
-                console.error('Error loading pets:', error);
-                allPets = [];
-            }
+// Load pets from local JSON file
+async function loadPets() {
+    try {
+        // Fetch the JSON file in the same directory
+        const response = await fetch('pet_values.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+            // Keep only pets with valid image URLs
+            allPets = data.filter(pet => pet.image_url && pet.image_url !== 'null' && pet.image_url.trim() !== '');
+            console.log('Successfully loaded', allPets.length, 'pets from pet_values.json');
+            populatePetsGrid();
+        } else {
+            console.error('Invalid data format in JSON:', data);
+            allPets = [];
+        }
+    } catch (error) {
+        console.error('Error loading pets from JSON:', error);
+        allPets = [];
+    }
+}
+
 
         // Populate pets grid in modal
         function populatePetsGrid() {
