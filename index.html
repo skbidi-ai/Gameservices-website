@@ -1045,15 +1045,19 @@
 async function loadPets() {
     try {
         const githubURL = 'https://raw.githubusercontent.com/skbidi-ai/Gameservices-website/main/pet_values.json';
-        const response = await fetch(githubURL);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        const response = await fetch(githubURL, { cache: 'no-store' }); // Avoid caching issues
+
+        const text = await response.text(); // First get text
+        let data;
+
+        try {
+            data = JSON.parse(text); // Try parsing JSON
+        } catch (err) {
+            console.error('Error parsing JSON from GitHub:', text);
+            throw new Error('Invalid JSON from GitHub');
         }
 
-        const data = await response.json();
-
         if (Array.isArray(data)) {
-            // Keep only pets with valid image URLs
             allPets = data.filter(
                 pet => pet.image_url && pet.image_url !== 'null' && pet.image_url.trim() !== ''
             );
@@ -1068,6 +1072,7 @@ async function loadPets() {
         allPets = [];
     }
 }
+
 
 
         // Populate pets grid in modal
