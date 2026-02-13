@@ -17,7 +17,12 @@ container.style.maxHeight = "80vh";
 container.style.overflowY = "auto";
 container.style.zIndex = "9999";
 container.style.boxShadow = "0 0 15px rgba(0,0,0,0.3)";
+container.style.fontFamily = "Arial, sans-serif";
+container.style.textAlign = "center";
 document.body.appendChild(container);
+
+// Show loading message
+container.innerText = "Loading pets...";
 
 // Fetch JSON
 fetch(petsURL)
@@ -25,10 +30,19 @@ fetch(petsURL)
     if (!response.ok) throw new Error("Network error: " + response.status);
     return response.json();
   })
-  .then(pets => displayPets(pets))
+  .then(pets => {
+    if (!pets || typeof pets !== "object") {
+      throw new Error("Invalid JSON structure");
+    }
+    displayPets(pets);
+  })
   .catch(error => {
     console.error("Error loading pets:", error);
-    container.innerText = "Failed to load pets.";
+    container.innerHTML = `
+      <h3 style="color:red">Failed to load pets</h3>
+      <p>${error.message}</p>
+      <p>Check the URL or JSON formatting.</p>
+    `;
   });
 
 // Function to display pets
@@ -42,6 +56,8 @@ function displayPets(pets) {
     card.style.margin = "5px";
     card.style.padding = "10px";
     card.style.textAlign = "center";
+    card.style.display = "inline-block";
+    card.style.width = "150px";
 
     card.innerHTML = `
       <img src="${pet.image_url}" alt="${pet.name}" style="width:100px;height:auto;border-radius:4px"/>
