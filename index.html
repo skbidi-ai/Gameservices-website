@@ -1042,11 +1042,10 @@
             updateGridDisplay();
         }
 
-// Load pets from local JSON file
 async function loadPets() {
     try {
-        // Fetch the JSON file in the same directory
-        const response = await fetch('pet_values.json');
+        const githubURL = 'https://raw.githubusercontent.com/skbidi-ai/Gameservices-website/main/pet_values.json';
+        const response = await fetch(githubURL);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -1055,8 +1054,10 @@ async function loadPets() {
 
         if (Array.isArray(data)) {
             // Keep only pets with valid image URLs
-            allPets = data.filter(pet => pet.image_url && pet.image_url !== 'null' && pet.image_url.trim() !== '');
-            console.log('Successfully loaded', allPets.length, 'pets from pet_values.json');
+            allPets = data.filter(
+                pet => pet.image_url && pet.image_url !== 'null' && pet.image_url.trim() !== ''
+            );
+            console.log('Successfully loaded', allPets.length, 'pets from GitHub JSON');
             populatePetsGrid();
         } else {
             console.error('Invalid data format in JSON:', data);
