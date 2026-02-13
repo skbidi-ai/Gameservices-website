@@ -1044,32 +1044,38 @@
 
 async function loadPets() {
     try {
-        const githubURL = 'https://raw.githubusercontent.com/skbidi-ai/Gameservices-website/main/pet_values.json';
-        const response = await fetch(githubURL, { cache: 'no-store' }); // Avoid caching issues
+        // Load from local pet_values.json file
+        const localURL = './pet_values.json';
+        const response = await fetch(localURL, { cache: 'no-store' }); // Avoid caching issues
 
-        const text = await response.text(); // First get text
-        let data;
-
-        try {
-            data = JSON.parse(text); // Try parsing JSON
-        } catch (err) {
-            console.error('Error parsing JSON from GitHub:', text);
-            throw new Error('Invalid JSON from GitHub');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        const data = await response.json(); // Parse JSON directly
+
+        // Handle both array and object formats
         if (Array.isArray(data)) {
             allPets = data.filter(
                 pet => pet.image_url && pet.image_url !== 'null' && pet.image_url.trim() !== ''
             );
-            console.log('Successfully loaded', allPets.length, 'pets from GitHub JSON');
-            populatePetsGrid();
+            console.log('Successfully loaded', allPets.length, 'pets from local JSON');
+        } else if (typeof data === 'object' && data !== null) {
+            // Convert object format to array format for compatibility
+            allPets = Object.values(data).filter(
+                pet => pet && pet.image_url && pet.image_url !== 'null' && pet.image_url.trim() !== ''
+            );
+            console.log('Successfully loaded', allPets.length, 'pets from local JSON (object format)');
         } else {
             console.error('Invalid data format in JSON:', data);
             allPets = [];
         }
+        
+        populatePetsGrid();
     } catch (error) {
-        console.error('Error loading pets from JSON:', error);
+        console.error('Error loading pets from local JSON:', error);
         allPets = [];
+        document.getElementById('petsGrid').innerHTML = '<div style="padding: 20px; text-align: center; color: #e66060;">Failed to load pets. Make sure pet_values.json is in the same directory.</div>';
     }
 }
 
