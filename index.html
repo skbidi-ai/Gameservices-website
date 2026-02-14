@@ -19,6 +19,7 @@
             color: #6b6b6b;
         }
 
+
         /* Header - exactly like elvebredd */
         .header {
             display: flex;
@@ -60,7 +61,7 @@
 
         .nav-tab.active {
             background: rgba(197, 184, 149, 0.4);
-            border-color: #ffc916;
+            border-color: #ff6666;
             color: #FF3E3E;
         }
 
@@ -192,18 +193,40 @@
 
         /* Trade Comparison Header - exactly like elvebredd */
 .trade-header {
-    width: 50vw; /* 50% of viewport width (middle half of screen) */
-    margin: 0 auto 50px auto; /* center horizontally */
+    position: relative;
+
+    width: 53vw;
+    margin: 0 auto 50px auto;
 
     background: rgba(230, 220, 205, 0.8);
-    border-radius: 40px;
+    border-radius: 75px;
     padding: 30px 20px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(10px);
+
+    z-index: 1;
 }
+
+.trade-header::before {
+    content: "";
+    position: absolute;
+
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+
+    border-radius: 78px; /* 75 + border thickness */
+    background: linear-gradient(45deg, #dcd6ce,#eae6e0, #faf9f8);
+
+    z-index: -1;
+}
+
 
 
 
@@ -214,7 +237,7 @@
         }
 
         .offer-label {
-            font-size: 17px;
+            font-size: 16px;
             color: #8a8a8a;
             margin-top: 10px;
             font-weight: 500;
@@ -315,11 +338,12 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            padding: 30px;
-            background: rgba(230, 220, 205, 0.7);
+            padding: 8px;
+            background: rgba(
+255, 102, 102);
             border-radius: 25px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            border: 3px solid #ff6666;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 0px solid #ff6666;
         }
 
         /* NO red/blue borders - same muted color for both */
@@ -331,8 +355,8 @@
             width: 120px;
             height: 120px;
             background: rgba(250, 245, 235, 0.9);
-            border: 4px dashed #ff6666;
-            border-radius: 10px;
+            border: 2px solid #ff6666;
+            border-radius: 17px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -341,13 +365,19 @@
             position: relative;
         }
 
-        .pet-slot:hover {
-            background: rgba(255, 250, 240, 0.95);
-            border-color: #FF4D4D;
-        }
+.pet-slot:hover {
+    background: linear-gradient(
+        45deg,
+        #faf9f8,
+        #eae6e0,
+        #dcd6ce
+    );
+    border-color: #ff6666;
+}
+
 
         .pet-slot.filled {
-            background: rgba(255, 255, 250, 0.98);
+            background: rgba(255, 216, 216);
             border: 2px solid #FF4D4D;
             padding: 5px;
         }
