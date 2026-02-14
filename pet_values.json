@@ -1,12 +1,22 @@
 {
-  "corrupted_kitsune": {
+  "corrupted_kitsune_1": {
     "name": "Bat Dragon",
-    "value": "537 Mimic Value",
+    "value": "537 Shark Value",
     "demand": "Medium",
     "trend": "Rising",
     "tier": "Divine",
     "obtainement": "[Kitsune Chest](https://growagarden.fandom.com/wiki/Kitsune_Chest) <:KitsuneChest:1414566037051019355>",
     "image_url": "https://media.discordapp.net/attachments/1414528231834386545/1471946022782505136/latest.png?ex=6990c80f&is=698f768f&hm=0dba1677a4cc2345b3490ced98bf0a6b9c0f91a89dee69d239013a3dfbffb9b1&=&format=webp&quality=lossless",
+    "last_updated": "2025-10-12T15:59:51.262977"
+  }
+    "corrupted_kitsune": {
+    "name": "Shadow Dragon",
+    "value": "358 Shark Value",
+    "demand": "Medium",
+    "trend": "Rising",
+    "tier": "Divine",
+    "obtainement": "[Kitsune Chest](https://growagarden.fandom.com/wiki/Kitsune_Chest) <:KitsuneChest:1414566037051019355>",
+    "image_url": "https://media.discordapp.net/attachments/1414528231834386545/1472318940385382468/latest.png?ex=6992235d&is=6990d1dd&hm=9949c609856ccbdcc9bb61261dfc03b9c8d4ed7d4f1d8197e009344ea2734e77&=&format=webp&quality=lossless",
     "last_updated": "2025-10-12T15:59:51.262977"
   }
 }
